@@ -68,15 +68,17 @@ def compute_rotation_matrix_from_ortho6d(poses):
 
 class Inference():
     def __init__(self):
-        detector_weight_path = "/home/hampus/vision/yolov3/runs/train/exp4/weights/best.pt"
-        detector_model = "/home/hampus/vision/yolov3"
-        encoder_weights = "/home/hampus/vision/AugmentedAutoencoder/multi-pose/data/encoder/obj1-18/encoder.npy"
-        model_path = "/home/hampus/vision/AugmentedAutoencoder/multi-pose/output/test/models/model-epoch0.pt"
+        #detector_weight_path = "/home/hampus/vision/yolov3/runs/train/exp4/weights/best.pt"
+        detector_weight_path = "../yolov3/my_trained_models/best.pt"
+        #detector_model = "/home/hampus/vision/yolov3"
+        detector_model = "../yolov3"
+        encoder_weights = "./encoder.npy"
+        model_path = "./model-epoch0.pt"
 
         device = torch.device("cuda:0")
 
         # load yolo detector
-        detector = torch.hub.load('/home/hampus/vision/yolov3', 'custom', path="/home/hampus/vision/yolov3/runs/train/exp5/weights/best.pt", source='local')
+        detector = torch.hub.load(detector_model, 'custom', path=detector_weight_path, source='local')
 
         # load AE autoencoder
         encoder = Encoder(encoder_weights).to(device)
